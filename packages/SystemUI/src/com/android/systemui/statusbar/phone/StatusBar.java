@@ -683,6 +683,33 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private ActivityIntentHelper mActivityIntentHelper;
 
+<<<<<<< HEAD
+=======
+    private class CustomSettingsObserver extends ContentObserver {
+        CustomSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MEDIA_BLUR),
+                    false, this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        public void update() {
+            if (mMediaManager != null) {
+                mMediaManager.setLockScreenMediaBlurLevel();
+            }
+        }
+    }
+
+    private CustomSettingsObserver mCustomSettingsObserver;
+
     /**
      * Public constructor for StatusBar.
      *
