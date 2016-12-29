@@ -2016,6 +2016,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             /*resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.XXX),
                     false, this, UserHandle.USER_ALL);*/
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MEDIA_BLUR),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -2024,16 +2027,27 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.XXX))) {
                 doXXX();
             }*/
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MEDIA_BLUR))) {
+                setLockScreenMediaBlurLevel();
+            }
         }
 
         public void update() {
             //doXXX();
+            setLockScreenMediaBlurLevel();
         }
     }
 
     /*private void doXXX() {
 
     }*/
+
+    private void setLockScreenMediaBlurLevel() {
+        if (mMediaManager != null) {
+            mMediaManager.setLockScreenMediaBlurLevel();
+        }
+    }
 
     /**
      * All changes to the status bar and notifications funnel through here and are batched.
