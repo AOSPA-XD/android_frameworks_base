@@ -934,9 +934,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         mAppFullscreen = result.mAppFullscreen;
         mAppImmersive = result.mAppImmersive;
 
-        mCustomSettingsObserver.observe();
-        mCustomSettingsObserver.update();
-
         // StatusBarManagerService has a back up of IME token and it's restored here.
         setImeWindowStatus(mDisplayId, result.mImeToken, result.mImeWindowVis,
                 result.mImeBackDisposition, result.mShowImeSwitcher);
@@ -1045,6 +1042,11 @@ public class StatusBar extends SystemUI implements DemoMode,
                 }, OverlayPlugin.class, true /* Allow multiple plugins */);
                 mActivityManager = mContext.getSystemService(ActivityManager.class);
                 mFODCircleViewImpl.registerCallback(mFODCircleViewImplCallback);
+
+        mCustomSettingsObserver = new CustomSettingsObserver(mHandler);
+        mCustomSettingsObserver.observe();
+        mCustomSettingsObserver.update();
+
     }
 
     // ================================================================================
@@ -2013,27 +2015,22 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
-            /*resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.XXX),
-                    false, this, UserHandle.USER_ALL);*/
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            /*if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.XXX))) {
-                doXXX();
-            }*/
+            update();
         }
 
         public void update() {
-            //doXXX();
+            if (mNotificationShadeWindowViewController != null) {
+                mNotificationShadeWindowViewController.updateSettings();
+            }
         }
     }
-
-    /*private void doXXX() {
-
-    }*/
 
     /**
      * All changes to the status bar and notifications funnel through here and are batched.
