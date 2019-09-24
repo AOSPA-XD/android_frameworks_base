@@ -683,6 +683,31 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private ActivityIntentHelper mActivityIntentHelper;
 
+    private class CustomSettingsObserver extends ContentObserver {
+        CustomSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        public void update() {
+            if (mNotificationShadeWindowViewController != null) {
+                mNotificationShadeWindowViewController.updateSettings();
+            }
+        }
+    }
+
+    private CustomSettingsObserver mCustomSettingsObserver;
+
     /**
      * Public constructor for StatusBar.
      *
@@ -1045,6 +1070,10 @@ public class StatusBar extends SystemUI implements DemoMode,
                 }, OverlayPlugin.class, true /* Allow multiple plugins */);
                 mActivityManager = mContext.getSystemService(ActivityManager.class);
                 mFODCircleViewImpl.registerCallback(mFODCircleViewImplCallback);
+
+        mCustomSettingsObserver = new CustomSettingsObserver(mHandler);
+        mCustomSettingsObserver.observe();
+        mCustomSettingsObserver.update();
     }
 
     // ================================================================================
