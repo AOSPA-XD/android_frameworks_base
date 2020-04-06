@@ -21,4 +21,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <!-- Whether usage of the proximity sensor during doze is supported -->
+    <bool name="doze_proximity_sensor_supported">true</bool>
+
 </resources>
