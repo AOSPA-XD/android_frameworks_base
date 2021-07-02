@@ -5048,12 +5048,6 @@ public final class Settings {
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
 
         /**
-         * Number of qs columns on quickbar
-         * @hide
-         */
-        public static final String QS_QUICKBAR_COLUMNS = "qs_quickbar_columns";
-
-        /**
          * Whether to use new QS panel bg tint or not
          * @hide
          */
