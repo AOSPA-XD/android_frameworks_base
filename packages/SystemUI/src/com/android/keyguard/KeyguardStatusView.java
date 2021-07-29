@@ -328,6 +328,11 @@ public class KeyguardStatusView extends GridLayout implements
         if (mOwnerInfo == null) return;
         String info = mLockPatternUtils.getDeviceOwnerInfo();
         if (info == null) {
+            final ContentResolver resolver = mContext.getContentResolver();
+            String currentClock = Settings.Secure.getString(
+                resolver, Settings.Secure.LOCK_SCREEN_CUSTOM_CLOCK_FACE);
+            boolean mCustomClockSelectionOOS = currentClock == null ? false : (currentClock.contains("OOS") || currentClock.contains("Twelve"));
+
             // If left aligned style clock, align the textView to start else keep it center.
             if (isTypeClock() || isOosClock()) {
                 mOwnerInfo.setPaddingRelative(getCustomClockPaddingStart() + 8, 0, 0, 0);
