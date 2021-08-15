@@ -97,8 +97,7 @@ public class TypeClockController implements ClockPlugin {
         mStatusBarHeight = res.getDimensionPixelSize(R.dimen.status_bar_height);
         mKeyguardLockPadding = res.getDimensionPixelSize(R.dimen.keyguard_lock_padding);
         mKeyguardLockHeight = res.getDimensionPixelSize(R.dimen.keyguard_lock_height);
-        mBurnInOffsetY = res.getBoolean(com.android.internal.R.bool.config_enableBurnInProtection) ?
-                             res.getDimensionPixelSize(R.dimen.burn_in_prevention_offset_y) : 0;
+        mBurnInOffsetY = res.getDimensionPixelSize(R.dimen.burn_in_prevention_offset_y);
     }
 
     private void createViews() {
@@ -172,8 +171,7 @@ public class TypeClockController implements ClockPlugin {
     @Override
     public int getPreferredY(int totalHeight) {
         // On AOD, clock needs to appear below the status bar with enough room for pixel shifting
-        int aodY = mStatusBarHeight + mKeyguardLockHeight + 2 * mKeyguardLockPadding
-                + mBurnInOffsetY + mTypeClock.getHeight() + (mTypeClock.getHeight() / 2);
+        int aodY = mStatusBarHeight + mKeyguardLockHeight + 2 * mKeyguardLockPadding + mTypeClock.getHeight() + (mTypeClock.getHeight() / 2);
         // On lock screen, clock needs to appear below the lock icon
         int lockY =  mStatusBarHeight + mKeyguardLockHeight + 2 * mKeyguardLockPadding + (mTypeClock.getHeight() / 2);
         return (int) MathUtils.lerp(lockY, aodY, mDarkAmount);
