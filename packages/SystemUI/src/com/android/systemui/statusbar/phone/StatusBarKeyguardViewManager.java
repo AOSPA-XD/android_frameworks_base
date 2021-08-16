@@ -361,6 +361,10 @@ public class StatusBarKeyguardViewManager implements RemoteInputController.Callb
             mLockIconContainer.setPaddingRelative((int) mContext.getResources()
                     .getDimension(R.dimen.oos_clock_left_padding) + 8, 0, 0, 0);
             paramsContainer.gravity = Gravity.TOP | Gravity.LEFT;
+        } else if (mCustomClockSelectionIDE) {
+            mLockIconContainer.setPaddingRelative((int) mContext.getResources()
+                    .getDimension(R.dimen.ide_clock_left_padding) + 8, 0, 0, 0);
+            paramsContainer.gravity = Gravity.TOP | Gravity.LEFT;
         } else {
             mLockIconContainer.setPaddingRelative(0, 0, 0, 0);
             paramsContainer.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
