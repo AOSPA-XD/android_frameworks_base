@@ -334,7 +334,7 @@ public class KeyguardStatusView extends GridLayout implements
             boolean mCustomClockSelectionOOS = currentClock == null ? false : (currentClock.contains("OOS") || currentClock.contains("Twelve"));
 
             // If left aligned style clock, align the textView to start else keep it center.
-            if (isTypeClock() || isOosClock() || isShapeShiftTwelveClock()) {
+            if (isTypeClock() || isOosClock()) {
                 mOwnerInfo.setPaddingRelative(getCustomClockPaddingStart() + 8, 0, 0, 0);
                 mOwnerInfo.setGravity(Gravity.START);
             } else {
