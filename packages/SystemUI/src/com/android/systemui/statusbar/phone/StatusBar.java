@@ -2975,6 +2975,7 @@ public class StatusBar extends SystemUI implements
     }
 
     public void showKeyguardImpl() {
+        Trace.beginSection("StatusBar#showKeyguard");
         mIsKeyguard = true;
         if (mKeyguardStateController.isLaunchTransitionFadingAway()) {
             mNotificationPanelViewController.cancelAnimation();
@@ -2987,6 +2988,7 @@ public class StatusBar extends SystemUI implements
             mStatusBarStateController.setState(StatusBarState.KEYGUARD);
         }
         updatePanelExpansionForKeyguard();
+        Trace.endSection();
     }
 
     private void updatePanelExpansionForKeyguard() {
