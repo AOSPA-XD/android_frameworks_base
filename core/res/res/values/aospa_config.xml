@@ -94,16 +94,6 @@
     <!-- KeaHandler to intercept inputs on screen off. -->
     <bool name="config_enableKeyHandler">false</bool>
 
-    <!-- Fingerprint from a certified device against current platform SPL level -->
-    <string name="config_certifiedFingerprint" translatable="false"></string>
-
-    <!-- Fingerprint from stock ROM -->
-    <string name="config_stockFingerprint" translatable="false"></string>
-
-    <!-- Whether to spoof device as pixel for certain google apps, to
-         unlock pixel-exclusive features -->
-    <bool name="config_spoofGoogleApps">false</bool>
-
     <!-- Whether to show WiFi/Hotspot standard -->
     <bool name="config_show_network_standard">false</bool>
 
