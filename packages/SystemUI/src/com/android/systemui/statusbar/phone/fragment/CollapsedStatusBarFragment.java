@@ -104,6 +104,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private final NetworkController mNetworkController;
     private LinearLayout mSystemIconArea;
     private View mClockView;
+    private View mTrafficView;
     private View mOngoingCallChip;
     private View mNotificationIconAreaInner;
     private int mDisabled1;
@@ -234,6 +235,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mStatusBarIconController.addIconGroup(mDarkIconManager);
         mSystemIconArea = mStatusBar.findViewById(R.id.system_icon_area);
         mClockView = mStatusBar.findViewById(R.id.clock);
+        mTrafficView = mStatusBar.findViewById(R.id.network_traffic);
         mOngoingCallChip = mStatusBar.findViewById(R.id.ongoing_call_chip);
         showSystemIconArea(false);
         showClock(false);
@@ -413,7 +415,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             state |= DISABLE_CLOCK;
         }
 
-
         if (mNetworkController != null && EncryptionHelper.IS_DATA_ENCRYPTED) {
             if (mNetworkController.hasEmergencyCryptKeeperText()) {
                 state |= DISABLE_NOTIFICATION_ICONS;
@@ -450,8 +451,10 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         // Hide notifications if the disable flag is set or we have an ongoing call.
         if (disableNotifications || hasOngoingCall) {
             hideNotificationIconArea(animate);
+            animateHide(mTrafficView, animate);
         } else {
             showNotificationIconArea(animate);
+            animateShow(mTrafficView, animate);
         }
 
         // Show the ongoing call chip only if there is an ongoing call *and* notification icons
