@@ -5722,6 +5722,11 @@ public final class Settings {
         public static final String NOTIFICATION_VIBRATION_PATTERN = "notification_vibration_pattern";
 
         /**
+         * @hide
+         */
+        public static final String PREVENT_POINTER_ACCELERATION = "prevent_pointer_acceleration";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -5873,6 +5878,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(GESTURE_ONE_FINGER_SWIPE_DOWN);
             PRIVATE_SETTINGS.add(GESTURE_ONE_FINGER_SWIPE_LEFT);
             PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
+            PRIVATE_SETTINGS.add(PREVENT_POINTER_ACCELERATION);
         }
 
         /**
